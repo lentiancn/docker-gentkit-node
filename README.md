@@ -8,8 +8,7 @@ A project for building Docker image for the Node.js environment.
 ## Pull and run a new container
 
 ```shell
-$ sudo docker run -d \
---restart unless-stopped \
+$ sudo docker run -it \
 --name <your_container_name> \
 gentkit/node:latest
 ```
