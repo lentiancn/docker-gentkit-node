@@ -1,7 +1,7 @@
 # Node.js on Docker
 
-[![MIT License](https://img.shields.io/github/license/lentiancn/dockerhub-gentkit-node?style=flat-square)](LICENSE)
-[![GitHub Release](https://img.shields.io/github/tag/lentiancn/dockerhub-gentkit-node.svg?label=release)](https://github.com/lentiancn/dockerhub-gentkit-node/releases)
+[![MIT License](https://img.shields.io/github/license/lentiancn/docker-gentkit-node?style=flat-square)](LICENSE)
+[![GitHub Release](https://img.shields.io/github/tag/lentiancn/docker-gentkit-node.svg?label=release)](https://github.com/lentiancn/docker-gentkit-node/releases)
 
 A project for building Docker image for the Node.js environment.
 
@@ -25,12 +25,12 @@ $ sudo docker exec -it <your_container_name or your_container_id> /bin/sh
 ## License
 
 **gentkit/node** is licensed under
-the [MIT License](https://raw.githubusercontent.com/lentiancn/dockerhub-gentkit-node/refs/heads/main/LICENSE) .
+the [MIT License](https://raw.githubusercontent.com/lentiancn/docker-gentkit-node/refs/heads/main/LICENSE) .
 
 ## Appendix
 
 ### Source
 
-https://github.com/lentiancn/dockerhub-gentkit-node (**on** GitHub)
+https://github.com/lentiancn/docker-gentkit-node (**on** GitHub)
 
-https://gitee.com/lentiancn/dockerhub-gentkit-node (**on** Gitee)
+https://gitee.com/lentiancn/docker-gentkit-node (**on** Gitee)

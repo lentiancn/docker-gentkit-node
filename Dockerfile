@@ -1,7 +1,7 @@
 #
 # MIT License
 #
-# https://github.com/lentiancn/dockerhub-gentkit-node/blob/main/LICENSE
+# https://github.com/lentiancn/docker-gentkit-node/blob/main/LICENSE
 #
 
 FROM gentkit/alpine:3.23.3
@@ -13,7 +13,7 @@ LABEL maintainer="Len <lentiancn@126.com>" \
       org.opencontainers.image.description="A Docker image for the Node.js environment." \
       org.opencontainers.image.vendor="GentKit" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/lentiancn/dockerhub-gentkit-node" \
+      org.opencontainers.image.source="https://github.com/lentiancn/docker-gentkit-node" \
       org.opencontainers.image.version="${IMAGE_VERSION}" \
       org.opencontainers.image.created="${IMAGE_BUILD_DATE}"
 
