@@ -5,7 +5,7 @@
 #
 
 #
-# If it is "unknown", cause the 'alpine' base image to fail the build to ensure the correct version is referenced.
+# If it is "unknown", cause the 'gentkit/alpine' base image to fail the build to ensure the correct version is referenced.
 #
 ARG ALPINE_IMAGE_VERSION="unknown"
 
