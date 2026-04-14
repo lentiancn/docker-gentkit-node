@@ -5,18 +5,21 @@
 #
 
 #
-# If it is "unknown", cause the 'gentkit/alpine' base image to fail the build to ensure the correct version is referenced.
+# NOTE: If it is "unknown", cause the 'gentkit/alpine' base image to fail the build to ensure the correct version is referenced.
 #
 ARG ALPINE_IMAGE_VERSION="unknown"
 
 #
+# Stage 1 : builder
+#
 # Use 'gentkit/alpine' as the base image with specified version
 #
-FROM gentkit/alpine:${ALPINE_IMAGE_VERSION}
+FROM gentkit/alpine:${ALPINE_IMAGE_VERSION} AS builder
 
 #
 # Define build arguments for image metadata
 #
+ARG ALPINE_IMAGE_VERSION="unknown"
 ARG IMAGE_VERSION="unknown"
 ARG IMAGE_BUILD_DATE="unknown"
 # Node source, optional: official_bin (default), official_src, unofficial_bin, unofficial_src
@@ -27,24 +30,11 @@ ARG NODE_SOURCE_PATH="unknown"
 ARG NODE_SOURCE_FORMAT="tar.xz"
 
 #
-# Image metadata labels following OCI Image Format Specification
-#
-LABEL maintainer="Len <lentiancn@126.com>" \
-      description="A Docker image for the Node.js environment." \
-      org.opencontainers.image.title="Node.js on Docker" \
-      org.opencontainers.image.description="A Docker image for the Node.js environment." \
-      org.opencontainers.image.vendor="GentKit" \
-      org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/lentiancn/docker-gentkit-node" \
-      org.opencontainers.image.version="${IMAGE_VERSION}" \
-      org.opencontainers.image.created="${IMAGE_BUILD_DATE}"
-
-#
-# Install node
+# Prepare node
 #
 RUN set -eu && \
     # Install dependencies
-    apk add --no-cache curl libstdc++ && \
+    apk add --no-cache curl && \
     case "${NODE_SOURCE}" in \
             official_bin) \
                 NODE_URL="https://nodejs.org/dist/${NODE_SOURCE_PATH}" \
@@ -73,17 +63,56 @@ RUN set -eu && \
     rm -rf nodetmpfs.${NODE_SOURCE_FORMAT} && \
     # Uninstall temp dependencies
     apk del curl && \
-    # Create symbolic links for node commands
-    ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
-    ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
-    ln -sf /usr/local/node/bin/npx /usr/local/bin/npx && \
-    # Reset welcome message
+    # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
-    NODE_ACTUAL_VERSION=$(node -v | cut -d'v' -f2) && \
-    NPM_ACTUAL_VERSION=$(npm -v) && \
+    NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
+    NPM_ACTUAL_VERSION=$(/usr/local/node/bin/npm -v) && \
     echo -e "\
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
 Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd
+
+#
+# Stage 2 : production
+#
+FROM gentkit/alpine:${ALPINE_IMAGE_VERSION} AS production
+
+#
+# Define build arguments for image metadata
+#
+ARG IMAGE_VERSION="unknown"
+ARG IMAGE_BUILD_DATE="unknown"
+
+#
+# Image metadata labels following OCI Image Format Specification
+#
+LABEL maintainer="Len <lentiancn@126.com>" \
+      description="A Docker image for the Node.js environment." \
+      org.opencontainers.image.title="Node.js on Docker" \
+      org.opencontainers.image.description="A Docker image for the Node.js environment." \
+      org.opencontainers.image.vendor="GentKit" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.source="https://github.com/lentiancn/docker-gentkit-node" \
+      org.opencontainers.image.version="${IMAGE_VERSION}" \
+      org.opencontainers.image.created="${IMAGE_BUILD_DATE}"
+
+#
+# Copy resources
+#
+# Reset welcome message
+COPY --from=builder /etc/motd /etc/motd
+# Install node home
+COPY --from=builder /usr/local/node /usr/local/node
+
+#
+# Configure node
+#
+RUN set -eu && \
+    # Install dependencies
+    apk add --no-cache libstdc++ && \
+    # Create symbolic links for node commands
+    ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
+    ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
+    ln -sf /usr/local/node/bin/npx /usr/local/bin/npx
 
 #
 # Set the working directory to /root for subsequent instructions
