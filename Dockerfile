@@ -76,7 +76,14 @@ RUN set -eu && \
     # Create symbolic links for node commands
     ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
     ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
-    ln -sf /usr/local/node/bin/npx /usr/local/bin/npx
+    ln -sf /usr/local/node/bin/npx /usr/local/bin/npx && \
+    # Extract Alpine Version from os-release and set welcome message
+    ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
+    NODE_ACTUAL_VERSION=$(node -v | cut -d'v' -f2) && \
+    NPM_ACTUAL_VERSION=$(npm -v) && \
+    echo -e "\
+    Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker!\n\
+    Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd && \
 
 # Set the working directory to /root for subsequent instructions
 WORKDIR /root
