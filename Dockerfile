@@ -59,8 +59,6 @@ RUN set -eu && \
     mkdir -p /usr/local/node && \
     # Extract files to node home
     tar -C /usr/local/node -xf nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
-    ls -l /usr/local/node/bin/node && \
-    /usr/local/node/bin/node -v && \
     # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
     NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
