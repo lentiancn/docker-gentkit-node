@@ -61,7 +61,9 @@ RUN set -eu && \
     tar -C /usr/local/node -xf nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
     # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
+    echo "hello1 - ${ALPINE_ACTUAL_VERSION}" && \
     NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
+    echo "hello2 - ${NODE_ACTUAL_VERSION}" && \
     NPM_ACTUAL_VERSION=$(/usr/local/node/bin/npm -v) && \
     echo -e "\
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
