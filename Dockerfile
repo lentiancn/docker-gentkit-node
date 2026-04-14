@@ -85,5 +85,7 @@ RUN set -eu && \
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
 Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd
 
+#
 # Set the working directory to /root for subsequent instructions
+#
 WORKDIR /root
