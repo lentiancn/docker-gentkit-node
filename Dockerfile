@@ -34,7 +34,7 @@ ARG NODE_SOURCE_FORMAT="tar.xz"
 #
 RUN set -eu && \
     # Install dependencies
-    apk add --no-cache curl && \
+    apk add --no-cache curl libstdc++ && \
     case "${NODE_SOURCE}" in \
             official_bin) \
                 NODE_URL="https://nodejs.org/dist/${NODE_SOURCE_PATH}" \
@@ -59,17 +59,17 @@ RUN set -eu && \
     mkdir -p /usr/local/node && \
     # Extract files to node home
     tar -C /usr/local/node -xf nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
-    # Remove temp file
-    rm -rf nodetmpfs.${NODE_SOURCE_FORMAT} && \
-    # Uninstall temp dependencies
-    apk del curl && \
     # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
     NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
     NPM_ACTUAL_VERSION=$(/usr/local/node/bin/npm -v) && \
     echo -e "\
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
-Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd
+Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd && \
+    # Remove temp file
+    rm -rf nodetmpfs.${NODE_SOURCE_FORMAT} && \
+    # Uninstall temp dependencies
+    apk del curl libstdc++
 
 #
 # Stage 2 : production
