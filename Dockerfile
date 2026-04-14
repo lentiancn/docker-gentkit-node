@@ -101,7 +101,7 @@ LABEL maintainer="Len <lentiancn@126.com>" \
 # Reset welcome message
 COPY --from=builder /etc/motd /etc/motd
 # Install node home
-COPY --from=builder /usr/local/node /usr/local/node
+COPY --from=builder /usr/local/node /usr/local/
 
 #
 # Configure node
