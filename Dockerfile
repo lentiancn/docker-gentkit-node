@@ -61,17 +61,18 @@ RUN set -eu && \
     tar -C /usr/local/node -xf nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
     # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
-    echo "hello1 - ${ALPINE_ACTUAL_VERSION}" && \
     NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
-    echo "hello2 - ${NODE_ACTUAL_VERSION}" && \
     NPM_ACTUAL_VERSION=$(/usr/local/node/bin/npm -v) && \
+    echo "hello3 - ${NPM_ACTUAL_VERSION}" && \
     echo -e "\
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
 Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd && \
+    echo "hello4 - ${NPM_ACTUAL_VERSION}" && \
     # Remove temp file
     rm -rf nodetmpfs.${NODE_SOURCE_FORMAT} && \
     # Uninstall temp dependencies
-    apk del curl libstdc++
+    apk del curl libstdc++ && \
+    echo "hello5 - ${NPM_ACTUAL_VERSION}"
 
 #
 # Stage 2 : production
