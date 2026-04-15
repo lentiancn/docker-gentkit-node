@@ -62,6 +62,7 @@ RUN set -eu && \
     # Assemble welcome message
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
     NODE_ACTUAL_VERSION=$(/usr/local/node/bin/node -v | cut -d'v' -f2) && \
+    echo "hello2 - ${NODE_ACTUAL_VERSION}" && \
     NPM_ACTUAL_VERSION=$(/usr/local/node/bin/npm -v) && \
     echo "hello3 - ${NPM_ACTUAL_VERSION}" && \
     echo -e "\
