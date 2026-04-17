@@ -5,35 +5,30 @@
 #
 
 #
-# NOTE: If it is "unknown", cause the 'gentkit/alpine' base image to fail the build to ensure the correct version is referenced.
-#
-ARG ALPINE_IMAGE_VERSION="unknown"
-
-#
 # Stage 1 : builder
 #
 # Use 'gentkit/alpine' as the base image with specified version
+# NOTE: If it is "unknown", cause the 'gentkit/alpine' base image to fail the build to ensure the correct version is referenced.
 #
+ARG ALPINE_IMAGE_VERSION="unknown"
 FROM gentkit/alpine:${ALPINE_IMAGE_VERSION} AS builder
 
 #
 # Define build arguments for image metadata
 #
 ARG ALPINE_IMAGE_VERSION="unknown"
-ARG IMAGE_VERSION="unknown"
-ARG IMAGE_BUILD_DATE="unknown"
-# Node source, optional: official_bin (default), official_src, unofficial_bin, unofficial_src
+## Node source, optional: official_bin (default), official_src, unofficial_bin, unofficial_src
 ARG NODE_SOURCE="official_bin"
-# Node source path, example "download/release/v24.14.1/node-v24.14.1-linux-x64-musl.tar.xz"
+## Node source path, example "download/release/v24.14.1/node-v24.14.1-linux-x64-musl.tar.xz"
 ARG NODE_SOURCE_PATH="unknown"
-# Node source format, optional: tar.xz (default), tar.gz
+## Node source format, optional: tar.xz (default), tar.gz
 ARG NODE_SOURCE_FORMAT="tar.xz"
 
 #
 # Prepare node
 #
 RUN set -eu && \
-    # Install dependencies
+    # Install dependencies \
     apk add --no-cache curl libstdc++ && \
     case "${NODE_SOURCE}" in \
             official_bin) \
@@ -53,15 +48,15 @@ RUN set -eu && \
             exit 1 \
             ;; \
     esac && \
-    # Download node installation package
+    # Download node installation package \
     curl -fsSL "${NODE_URL}" -o nodetmpfs.${NODE_SOURCE_FORMAT} && \
-    # Create node home
+    # Create node home \
     mkdir -p /usr/local/node && \
-    # Extract files to node home
+    # Extract files to node home \
     tar -C /usr/local/node -xf nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
-    # Assemble welcome message
+    # Assemble welcome message \
     ALPINE_ACTUAL_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
-    ## Create symbolic links (required by node and npm)
+    ## Create symbolic links (required by node and npm) \
     ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
     ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
     NODE_ACTUAL_VERSION=$(node -v | cut -d'v' -f2) && \
@@ -69,9 +64,9 @@ RUN set -eu && \
     echo -e "\
 Welcome to Alpine Linux ${ALPINE_ACTUAL_VERSION} on Docker !\n\
 Node.js version: ${NODE_ACTUAL_VERSION}, NPM version: ${NPM_ACTUAL_VERSION}" > /etc/motd && \
-    # Remove temp file
+    # Remove temp file \
     rm -rf nodetmpfs.${NODE_SOURCE_FORMAT} && \
-    # Uninstall temp dependencies
+    # Uninstall temp dependencies \
     apk del curl libstdc++
 
 #
@@ -82,7 +77,7 @@ FROM gentkit/alpine:${ALPINE_IMAGE_VERSION} AS production
 #
 # Define build arguments for image metadata
 #
-ARG IMAGE_VERSION="unknown"
+ARG NODE_IMAGE_VERSION="unknown"
 ARG IMAGE_BUILD_DATE="unknown"
 
 #
@@ -95,7 +90,7 @@ LABEL maintainer="Len <lentiancn@126.com>" \
       org.opencontainers.image.vendor="GentKit" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/lentiancn/docker-gentkit-node" \
-      org.opencontainers.image.version="${IMAGE_VERSION}" \
+      org.opencontainers.image.version="${NODE_IMAGE_VERSION}" \
       org.opencontainers.image.created="${IMAGE_BUILD_DATE}"
 
 #
@@ -110,14 +105,9 @@ COPY --from=builder /usr/local/node /usr/local/node
 # Configure node
 #
 RUN set -eu && \
-    # Install dependencies
+    # Install dependencies \
     apk add --no-cache libstdc++ && \
-    # Create symbolic links
+    # Create symbolic links \
     ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
     ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
     ln -sf /usr/local/node/bin/npx /usr/local/bin/npx
-
-#
-# Set the working directory to /root for subsequent instructions
-#
-WORKDIR /root
