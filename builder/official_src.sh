@@ -11,6 +11,8 @@ INSTALL_PREFIX="/usr/local/node"
 
 curl -fsSL "${NODE_URL}" -o /tmp/nodetmpfs.${NODE_SOURCE_FORMAT}
 
+mkdir -p /tmp/nodetmpfs
+
 # Extract files to tmpfs
 tar -C /tmp/nodetmpfs -xf /tmp/nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1
 
