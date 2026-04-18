@@ -21,6 +21,7 @@ ARG NODE_SOURCE="official_bin"
 ARG NODE_SOURCE_PATH="unknown"
 
 COPY --chmod=755 official_bin.sh /
+COPY --chmod=755 official_src.sh /
 COPY --chmod=755 unofficial_bin.sh /
 
 #
@@ -29,8 +30,6 @@ COPY --chmod=755 unofficial_bin.sh /
 RUN set -eu && \
     # Download node installation package \
     apk add --no-cache curl libstdc++ && \
-    # Create node home \
-    mkdir -p /usr/local/node && \
     NODE_SOURCE_FORMAT=$(echo "${NODE_SOURCE_PATH}" | awk -F/ '{print $NF}' | grep -oE '\.(tar\.gz|tar\.xz)$' | cut -c2-) && \
     if [ -z "${NODE_SOURCE_FORMAT}" ]; then \
         echo "Error: NODE_SOURCE_PATH must end with .tar.gz or .tar.xz, got '${NODE_SOURCE_PATH}'" >&2; \
@@ -41,8 +40,7 @@ RUN set -eu && \
                 sh /official_bin.sh \
                 ;; \
             official_src) \
-                echo "Error: NODE_SOURCE 'official_src' is not supported. Please use 'official_bin' or 'unofficial_bin'" >&2; \
-                exit 1 \
+                sh /official_src.sh \
                 ;; \
             unofficial_bin) \
                 sh /unofficial_bin.sh \
@@ -56,13 +54,6 @@ RUN set -eu && \
             exit 1 \
             ;; \
     esac && \
-#    curl -fsSL "${NODE_URL}" -o /tmp/nodetmpfs.${NODE_SOURCE_FORMAT} && \
-#    # Extract files to node home \
-#    tar -C /usr/local/node -xf /tmp/nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1 && \
-    # Create symbolic links \
-    ln -sf /usr/local/node/bin/node /usr/local/bin/node && \
-    ln -sf /usr/local/node/bin/npm /usr/local/bin/npm && \
-    ln -sf /usr/local/node/bin/npx /usr/local/bin/npx && \
     # Assemble welcome message \
     ALPINE_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
     NODE_VERSION=$(node -v | cut -d'v' -f2) && \

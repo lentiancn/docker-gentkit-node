@@ -10,5 +10,13 @@ NODE_URL="https://unofficial-builds.nodejs.org/${NODE_SOURCE_PATH}"
 
 curl -fsSL "${NODE_URL}" -o /tmp/nodetmpfs.${NODE_SOURCE_FORMAT}
 
+# Create node home
+mkdir -p /usr/local/node
+
 # Extract files to node home
 tar -C /usr/local/node -xf /tmp/nodetmpfs.${NODE_SOURCE_FORMAT} --strip-components=1
+
+# Create symbolic links \
+ln -sf /usr/local/node/bin/node /usr/local/bin/node
+ln -sf /usr/local/node/bin/npm /usr/local/bin/npm
+ln -sf /usr/local/node/bin/npx /usr/local/bin/npx
