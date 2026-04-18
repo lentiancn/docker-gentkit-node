@@ -35,17 +35,12 @@ RUN set -eu && \
         echo "Error: NODE_SOURCE_PATH must end with .tar.gz or .tar.xz, got '${NODE_SOURCE_PATH}'" >&2; \
         exit 1; \
     fi && \
-    echo "1 = ${NODE_SOURCE}" && sleep 10 && \
     case "${NODE_SOURCE}" in \
             official_bin) \
                 sh /official_bin.sh \
                 ;; \
             official_src) \
-    echo "2" \
-    sleep 10 \
                 sh /official_src.sh \
-    sleep 10 \
-    echo "3" \
                 ;; \
             unofficial_bin) \
                 sh /unofficial_bin.sh \
