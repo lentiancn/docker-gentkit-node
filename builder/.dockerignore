@@ -1,4 +1,5 @@
 *
 !.dockerignore
 !Dockerfile
+!official_bin.sh
 !unofficial_bin.sh

@@ -20,6 +20,7 @@ ARG NODE_SOURCE="official_bin"
 ## Node source path, example "download/release/v24.14.1/node-v24.14.1-linux-x64-musl.tar.xz"
 ARG NODE_SOURCE_PATH="unknown"
 
+COPY --chmod=755 official_bin.sh /
 COPY --chmod=755 unofficial_bin.sh /
 
 #
@@ -37,14 +38,13 @@ RUN set -eu && \
     fi && \
     case "${NODE_SOURCE}" in \
             official_bin) \
-                NODE_URL="https://nodejs.org/${NODE_SOURCE_PATH}" \
+                sh /official_bin.sh \
                 ;; \
             official_src) \
                 echo "Error: NODE_SOURCE 'official_src' is not supported. Please use 'official_bin' or 'unofficial_bin'" >&2; \
                 exit 1 \
                 ;; \
             unofficial_bin) \
-                NODE_URL="https://unofficial-builds.nodejs.org/${NODE_SOURCE_PATH}" \
                 sh /unofficial_bin.sh \
                 ;; \
             unofficial_src) \

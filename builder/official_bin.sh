@@ -6,7 +6,7 @@
 #
 set -e
 
-NODE_URL="https://unofficial-builds.nodejs.org/${NODE_SOURCE_PATH}"
+NODE_URL="https://nodejs.org/${NODE_SOURCE_PATH}"
 
 curl -fsSL "${NODE_URL}" -o /tmp/nodetmpfs.${NODE_SOURCE_FORMAT}
 
