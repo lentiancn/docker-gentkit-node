@@ -5,22 +5,25 @@
 
 A project for building Docker image for the Node.js environment.
 
-## Pull and run a new container
+## Pull and run into a new container
 
 ```shell
-$ sudo docker run -it \
+docker run -it \
 --name <your_container_name> \
 gentkit/node:latest
 ```
 
-## Exec into the container
+## Exec into your running container
 
 ```shell
-# View container status
-$ sudo docker ps -a --filter "name=<your_container_name>"
-
-$ sudo docker exec -it <your_container_name or your_container_id> /bin/sh
+docker exec -it \
+<your_container_name_or_id> \
+/bin/sh
 ```
+
+**NOTE** : Check status and start it using :
+**docker ps -a --filter "name=<your_container_name>"** and
+**docker start <your_container_name_or_id>**
 
 ## License
 
