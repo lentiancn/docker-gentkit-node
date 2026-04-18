@@ -54,7 +54,6 @@ RUN set -eu && \
             exit 1 \
             ;; \
     esac && \
-    echo "4" && sleep 10 && \
     # Assemble welcome message \
     ALPINE_VERSION=$(grep VERSION_ID /etc/os-release | cut -d'=' -f2) && \
     NODE_VERSION=$(node -v | cut -d'v' -f2) && \
