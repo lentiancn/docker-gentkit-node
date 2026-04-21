@@ -18,12 +18,12 @@ A project for building Docker image for the Node.js environment .
 
 ### non-LTS version
 
-| Image        | Tag                  | Description                                                                                                                 |
-|--------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| gentkit/node | X.Y.Z-alpine         | Node.js vX.Y.Z from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                       |
-| gentkit/node | current-alpine       | Current Node.js version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
-| gentkit/node | unoff-X.Y.Z-alpine   | Unofficial Node.js vX.Y.Z from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)          |
-| gentkit/node | unoff-current-alpine | Unofficial current Node.js version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
+| Image        | Tag                | Description                                                                                                                 |
+|--------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| gentkit/node | X.Y.Z-alpine       | Node.js vX.Y.Z from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                       |
+| gentkit/node | alpine             | Current Node.js version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
+| gentkit/node | unoff-X.Y.Z-alpine | Unofficial Node.js vX.Y.Z from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)          |
+| gentkit/node | unoff-alpine       | Unofficial current Node.js version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
 
 ## Pull and run into a new container
 
