@@ -9,21 +9,21 @@ A project for building Docker image for the Node.js environment .
 
 ### LTS version
 
-| Image        | Tag                   | Description                                                                                                                     |
-|--------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| gentkit/node | ltsX.Y.Z-alpine       | Node.js vX.Y.Z(LTS) from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                      |
-| gentkit/node | lts-alpine            | Current Node.js LTS version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
-| gentkit/node | unoff-ltsX.Y.Z-alpine | Unofficial Node.js vX.Y.Z(LTS) from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)         |
-| gentkit/node | unoff-lts-alpine      | Unofficial current Node.js LTS version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
+| Image        | Tag                    | Description                                                                                                                     |
+|--------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| gentkit/node | ltsX.Y.Z-alpine        | Node.js vX.Y.Z(LTS) from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                      |
+| gentkit/node | ltslatest-alpine       | Current Node.js LTS version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
+| gentkit/node | unoff-ltsX.Y.Z-alpine  | Unofficial Node.js vX.Y.Z(LTS) from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)         |
+| gentkit/node | unoff-ltslatest-alpine | Unofficial current Node.js LTS version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
 
 ### non-LTS version
 
-| Image        | Tag                | Description                                                                                                                 |
-|--------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| gentkit/node | X.Y.Z-alpine       | Node.js vX.Y.Z from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                       |
-| gentkit/node | alpine             | Current Node.js version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
-| gentkit/node | unoff-X.Y.Z-alpine | Unofficial Node.js vX.Y.Z from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)          |
-| gentkit/node | unoff-alpine       | Unofficial current Node.js version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
+| Image        | Tag                 | Description                                                                                                                 |
+|--------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| gentkit/node | X.Y.Z-alpine        | Node.js vX.Y.Z from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                                       |
+| gentkit/node | latest-alpine       | Current Node.js version from https://nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)                              |
+| gentkit/node | unoff-X.Y.Z-alpine  | Unofficial Node.js vX.Y.Z from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest)          |
+| gentkit/node | unoff-latest-alpine | Unofficial current Node.js version from https://unofficial-builds.nodejs.org/ based on Alpine Linux (gentkit/alpine:latest) |
 
 ## Pull and run into a new container
 
