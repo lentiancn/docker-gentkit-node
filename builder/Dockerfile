@@ -25,6 +25,12 @@ COPY --chmod=755 official_src.sh /
 COPY --chmod=755 unofficial_bin.sh /
 
 #
+# Define environment variables
+#
+## Compile cache directory to improve build performance
+ENV NODE_COMPILE_CACHE="/var/tmp/node-compile-cache"
+
+#
 # Prepare node
 #
 RUN set -eu && \
@@ -70,5 +76,7 @@ Node.js version: ${NODE_VERSION}, NPM version: ${NPM_VERSION}" > /etc/motd && \
         -C / etc/motd && \
     # Remove temp file \
     rm -rf /tmp/nodetmpfs.${NODE_SOURCE_FORMAT} && \
+    # Remove default cache directory \
+    rm -rf /tmp/node-compile-cache && \
     # Uninstall temp dependencies \
     apk del curl libstdc++ python3 py3-pip g++ make linux-headers
