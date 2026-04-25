@@ -14,7 +14,6 @@ FROM gentkit/alpine:${ALPINE_IMAGE_TAG}
 #
 # Define build arguments for image metadata
 #
-ARG ALPINE_IMAGE_TAG="unknown"
 ## Node source, optional: official_bin (default), official_src, unofficial_bin, unofficial_src
 ARG NODE_SOURCE="official_bin"
 ## Node source path, example "download/release/v24.14.1/node-v24.14.1-linux-x64-musl.tar.xz"
@@ -76,7 +75,7 @@ Node.js version: ${NODE_VERSION}, NPM version: ${NPM_VERSION}" > /etc/motd && \
     # Uninstall temp dependencies \
     apk del curl libstdc++ python3 py3-pip g++ make linux-headers && \
     # Create node filesystem \
-    tar -czf /distfs.tar.gz \
+    tar -czf /rootfs.tar.gz \
         -C / usr/local/node \
         -C / usr/local/bin/node \
         -C / usr/local/bin/npm \

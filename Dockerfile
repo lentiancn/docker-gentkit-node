@@ -12,11 +12,6 @@ ARG ALPINE_IMAGE_TAG="unknown"
 FROM gentkit/alpine:${ALPINE_IMAGE_TAG} AS builder
 
 #
-# Define build arguments
-#
-ARG ROOTFS_FILE="unknown"
-
-#
 # Copy resources
 #
 ADD nodefs.tar.gz /
