@@ -37,3 +37,13 @@ COPY --from=builder / /
 #
 ## Compile cache directory to improve build performance
 ENV NODE_COMPILE_CACHE="/var/tmp/node-compile-cache"
+
+#
+# Set the working directory to /root for subsequent instructions
+#
+WORKDIR /root
+
+#
+# Set the default command to execute when running the image
+#
+CMD ["/bin/sh"]
