@@ -33,21 +33,21 @@ A project for building Docker image for the Node.js environment .
 
 ```shell
 docker run -it \
---name <your_container_name> \
-gentkit/node:latest
+--name <CONTAINER_NAME> \
+gentkit/node:<TAG>
 ```
 
 ## Exec into your running container
 
 ```shell
 docker exec -it \
-<your_container_name_or_id> \
+<CONTAINER_NAME_OR_ID> \
 /bin/sh
 ```
 
 **NOTE** : Check status and start it using :
-**docker ps -a --filter "name=<your_container_name>"** and
-**docker start <your_container_name_or_id>**
+**docker ps -a --filter "name=<CONTAINER_NAME>"** and
+**docker start <CONTAINER_NAME_OR_ID>**
 
 ## License
 
